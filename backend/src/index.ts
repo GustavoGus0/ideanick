@@ -6,9 +6,6 @@ import cors from 'cors'
 const expressApp = express()
 
 expressApp.use(cors())
-expressApp.get('/ping', (req, res) => {
-  res.send('pong')
-})
 
 expressApp.use(
   '/trpc',
