@@ -1,6 +1,6 @@
 import { trpc } from '../../lib/trpc'
 
-export const AllIdeasPage = () => {
+export default function AllIdeasPage() {
   const { data, error, isLoading, isFetching, isError } = trpc.getIdeas.useQuery()
 
   if (isLoading || isFetching) {
@@ -14,14 +14,12 @@ export const AllIdeasPage = () => {
   return (
     <div>
       <h1>Ideanick</h1>
-      {data.ideas.map((idea) => {
-        return (
-          <div key={idea.nick}>
-            <h2>{idea.name}</h2>
-            <p>{idea.description}</p>
-          </div>
-        )
-      })}
+      {data.ideas.map((idea) => (
+        <div key={idea.nick}>
+          <h2>{idea.name}</h2>
+          <p>{idea.description}</p>
+        </div>
+      ))}
     </div>
   )
 }

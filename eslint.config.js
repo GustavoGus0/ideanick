@@ -1,0 +1,70 @@
+import js from '@eslint/js'
+import globals from 'globals'
+import eslintReact from 'eslint-plugin-react'
+import eslintReactHooks from 'eslint-plugin-react-hooks'
+import eslintReactRefresh from 'eslint-plugin-react-refresh'
+import prettierPlugin from 'eslint-plugin-prettier'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import typescriptPlugin from 'eslint-plugin-typescript'
+import tseslint from 'typescript-eslint'
+
+/** @type {import{'eslint'}.Linter.FlatConfig[]} */
+export default [
+  {
+    plugins: {
+      'react-hooks': eslintReactHooks,
+      react: eslintReact,
+      'react-refresh': eslintReactRefresh,
+      prettier: prettierPlugin,
+      typescript: typescriptPlugin,
+    },
+  },
+  {
+    ignores: ['node_modules', '**/dist'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  eslintReact.configs.flat['jsx-runtime'],
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+        ...globals.es2021,
+      },
+    },
+  },
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    rules: {
+      'no-console': 'warn',
+      'react-hooks/rules-of-hooks': 'error',
+      'react-refresh/only-export-components': 'warn',
+      'typescript/no-explicit-any': 'warn',
+      'prettier/prettier': ['error', eslintConfigPrettier],
+      'no-shadow': 'warn',
+      'no-debugger': 'error',
+      'prefer-const': 'warn',
+      'import/no-unresolved': 'off',
+      curly: 'error',
+      'sort-imports': [
+        'error',
+        {
+          ignoreCase: false,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
+          allowSeparatedGroups: false,
+        },
+      ],
+      'no-irregular-whitespace': [
+        'error',
+        {
+          skipTemplates: true,
+          skipStrings: true,
+        },
+      ],
+      '@typescript-eslint/no-non-null-assertion': 'error',
+    },
+  },
+]

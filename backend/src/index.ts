@@ -1,7 +1,7 @@
-import express from 'express'
 import * as trpcExpress from '@trpc/server/adapters/express'
-import { trpcRouter } from './trpc'
 import cors from 'cors'
+import express from 'express'
+import { trpcRouter } from './trpc'
 
 const expressApp = express()
 
@@ -15,5 +15,6 @@ expressApp.use(
 )
 
 expressApp.listen(3000, () => {
+  // eslint-disable-next-line no-console
   console.info('Listening on http://localhost:3000')
 })
