@@ -10,7 +10,8 @@
         "types": "pnpm -r --parallel types",
         "prettify": "pnpm -r --parallel prettify",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix"
+        "lint:fix": "eslint . --fix",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "concurrently": "^9.1.2",
@@ -22,6 +23,8 @@
         "eslint-plugin-react-refresh": "^0.4.16",
         "eslint-plugin-typescript": "^0.14.0",
         "globals": "^15.14.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^15.3.0",
         "prettier": "^3.4.2",
         "rimraf": "^6.0.1",
         "ts-node": "^10.9.2",
