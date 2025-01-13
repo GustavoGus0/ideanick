@@ -65,6 +65,7 @@ export default [
         },
       ],
       '@typescript-eslint/no-non-null-assertion': 'error',
+      'linebreak-style': ['error', 'unix'],
     },
   },
 ]

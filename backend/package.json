@@ -7,8 +7,8 @@
     "build": "rimraf ./dist && tsc --build ./tsconfig.json",
     "types": "tsc --noEmit --project ./tsconfig.json",
     "prettify": "prettier --log-level=warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}' !**/{node_modules,dist}/**/*",
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --fix --cache"
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache",
+    "lint:fix": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --fix"
   },
   "dependencies": {
     "@trpc/server": "^10.45.2",

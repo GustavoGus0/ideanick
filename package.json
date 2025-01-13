@@ -9,8 +9,8 @@
     "dev": "pnpm -r --parallel dev",
     "types": "pnpm -r --parallel types",
     "prettify": "pnpm -r --parallel prettify",
-    "lint": "eslint . --cache",
-    "lint:fix": "eslint . --fix --cache",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache",
+    "lint:fix": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --fix",
     "prepare": "husky install"
   },
   "devDependencies": {
