@@ -1,6 +1,6 @@
+import { trpc } from '../../lib/trpc'
 import { useParams } from 'react-router-dom'
 import { ViewIdeaRouteParams } from '../../lib/routes'
-import { trpc } from '../../lib/trpc'
 
 export default function ViewIdeaPage() {
   const { ideaNick } = useParams() as ViewIdeaRouteParams

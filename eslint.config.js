@@ -1,12 +1,12 @@
-import js from '@eslint/js'
-import globals from 'globals'
+import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintReact from 'eslint-plugin-react'
 import eslintReactHooks from 'eslint-plugin-react-hooks'
 import eslintReactRefresh from 'eslint-plugin-react-refresh'
+import globals from 'globals'
+import js from '@eslint/js'
 import prettierPlugin from 'eslint-plugin-prettier'
-import eslintConfigPrettier from 'eslint-config-prettier'
-import typescriptPlugin from 'eslint-plugin-typescript'
 import tseslint from 'typescript-eslint'
+import typescriptPlugin from 'eslint-plugin-typescript'
 
 /** @type {import{'eslint'}.Linter.FlatConfig[]} */
 export default [
@@ -50,9 +50,9 @@ export default [
       'sort-imports': [
         'error',
         {
-          ignoreCase: false,
-          ignoreDeclarationSort: true,
-          ignoreMemberSort: false,
+          ignoreCase: true,
+          ignoreDeclarationSort: false,
+          ignoreMemberSort: true,
           memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
           allowSeparatedGroups: false,
         },
