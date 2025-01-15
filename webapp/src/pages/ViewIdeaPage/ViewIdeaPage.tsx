@@ -1,3 +1,4 @@
+import css from './index.module.scss'
 import { trpc } from '../../lib/trpc'
 import { useParams } from 'react-router-dom'
 import { ViewIdeaRouteParams } from '../../lib/routes'
@@ -23,9 +24,9 @@ export default function ViewIdeaPage() {
 
   return (
     <div>
-      <h1>{data.idea.name}</h1>
-      <p>{data.idea.description}</p>
-      <div dangerouslySetInnerHTML={{ __html: data.idea.text }} />
+      <h1 className={css.title}>{data.idea.name}</h1>
+      <p className={css.description}>{data.idea.description}</p>
+      <div className={css.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
     </div>
   )
 }

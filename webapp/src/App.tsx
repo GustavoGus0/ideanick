@@ -4,6 +4,7 @@ import { TrpcProvider } from './lib/trpc'
 import ViewIdeaPage from './pages/ViewIdeaPage/ViewIdeaPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { getAllIdeasRoute, getViewIdeaRoute, viewIdeaRouteParams } from './lib/routes'
+import './styles/global.scss'
 
 export const App = () => {
   return (
