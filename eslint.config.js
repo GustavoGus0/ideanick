@@ -53,7 +53,7 @@ export default [
           ignoreCase: true,
           ignoreDeclarationSort: false,
           ignoreMemberSort: true,
-          memberSyntaxSortOrder: ['none', 'all', 'single', 'multiple'],
+          memberSyntaxSortOrder: ['all', 'single', 'multiple', 'none'],
           allowSeparatedGroups: false,
         },
       ],
