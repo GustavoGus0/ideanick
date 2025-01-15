@@ -1,4 +1,10 @@
 {
   "eslint.workingDirectories": ["backend", "webapp"],
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "scss"],
+  "css.validate": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "always"
+  }
 }
