@@ -1,5 +1,5 @@
 import css from './index.module.scss'
-import { getAllIdeasRoute } from '../../lib/routes'
+import { getAllIdeasRoute, getNewIdeaRoute } from '../../lib/routes'
 import { Link, Outlet } from 'react-router-dom'
 
 export default function Layout() {
@@ -11,6 +11,11 @@ export default function Layout() {
           <li className={css.item}>
             <Link className={css.link} to={getAllIdeasRoute()}>
               All Ideas
+            </Link>
+          </li>
+          <li className={css.item}>
+            <Link className={css.link} to={getNewIdeaRoute()}>
+              Add Idea
             </Link>
           </li>
         </ul>
