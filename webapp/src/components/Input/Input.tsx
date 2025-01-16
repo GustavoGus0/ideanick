@@ -1,16 +1,6 @@
-import { Dispatch, SetStateAction } from 'react'
-export default function Input({
-  name,
-  label,
-  state,
-  setState,
-}: {
-  name: string
-  label: string
-  state: Record<string, any>
-  // This any is allowed to be used in this place
-  setState: Dispatch<SetStateAction<any>>
-}) {
+import { FormikProps } from 'formik'
+export default function Input({ name, label, formik }: { name: string; label: string; formik: FormikProps<any> }) {
+  const value = formik.values[name]
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}</label>
@@ -18,9 +8,9 @@ export default function Input({
       <input
         type="text"
         onChange={(e) => {
-          setState({ ...state, [name]: e.target.value })
+          void formik.setFieldValue(name, e.target.value)
         }}
-        value={state[name]}
+        value={value}
         name={name}
         id={name}
       />
