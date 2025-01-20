@@ -52,8 +52,8 @@ export default [
         'error',
         {
           ignoreCase: true,
-          ignoreDeclarationSort: false,
-          ignoreMemberSort: true,
+          ignoreDeclarationSort: true,
+          ignoreMemberSort: false,
           memberSyntaxSortOrder: ['all', 'single', 'multiple', 'none'],
           allowSeparatedGroups: false,
         },

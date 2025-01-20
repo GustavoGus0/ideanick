@@ -4,8 +4,10 @@ import Textarea from '../../components/Textarea/Textarea'
 import { useFormik } from 'formik'
 import { withZodSchema } from 'formik-validator-zod'
 import z from 'zod'
+import { trpc } from '../../lib/trpc'
 
 export default function NewIdeaPage() {
+  const createIdea = trpc.createIdea.useMutation()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -24,8 +26,8 @@ export default function NewIdeaPage() {
         text: z.string().min(100, 'Text should be at least 100 characters long'),
       })
     ),
-    onSubmit: (values) => {
-      console.log('Submitted', values)
+    onSubmit: async (values) => {
+      await createIdea.mutateAsync(values)
     },
   })
 

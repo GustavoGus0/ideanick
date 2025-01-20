@@ -1,0 +1,5 @@
+{
+  "root": "./src",
+  "output": "./src/index.ts",
+  "include": ["**/index.ts"]
+}
