@@ -1,4 +1,3 @@
-import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintReact from 'eslint-plugin-react'
 import eslintReactHooks from 'eslint-plugin-react-hooks'
 import eslintReactRefresh from 'eslint-plugin-react-refresh'
@@ -8,7 +7,6 @@ import prettierPlugin from 'eslint-plugin-prettier'
 import tseslint from 'typescript-eslint'
 import typescriptPlugin from 'eslint-plugin-typescript'
 
-/** @type {import{'eslint'}.Linter.FlatConfig[]} */
 export default [
   {
     plugins: {
@@ -37,36 +35,21 @@ export default [
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@ideanick/backend/**', '!@ideanick/backend/**/', '!@ideanick/backend/**/input'],
+              message: 'Only types and input schemas are allowed to be imported from backend workspace',
+            },
+          ],
+        },
+      ],
+      'typescript/no-explicit-any': 'off',
       'no-console': 'warn',
-      'react-hooks/rules-of-hooks': 'error',
       'react-refresh/only-export-components': 'warn',
-      'typescript/no-explicit-any': 'warn',
-      '@typescript-eslint/no-explicit-any': 'warn',
-      'prettier/prettier': ['error', eslintConfigPrettier],
-      'no-shadow': 'warn',
-      'no-debugger': 'error',
-      'prefer-const': 'warn',
-      'import/no-unresolved': 'off',
-      curly: 'error',
-      'sort-imports': [
-        'error',
-        {
-          ignoreCase: true,
-          ignoreDeclarationSort: true,
-          ignoreMemberSort: false,
-          memberSyntaxSortOrder: ['all', 'single', 'multiple', 'none'],
-          allowSeparatedGroups: false,
-        },
-      ],
-      'no-irregular-whitespace': [
-        'error',
-        {
-          skipTemplates: true,
-          skipStrings: true,
-        },
-      ],
       '@typescript-eslint/no-non-null-assertion': 'error',
-      'linebreak-style': ['error', 'unix'],
     },
   },
 ]

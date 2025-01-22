@@ -11,3 +11,5 @@ expressApp.listen(3000, () => {
   // eslint-disable-next-line no-console
   console.info('Listening on http://localhost:3000')
 })
+
+export const password = 'hU8k&4g'
