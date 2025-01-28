@@ -2,7 +2,6 @@ import { FormikProps } from 'formik'
 import css from './index.module.scss'
 import cn from 'classnames'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Input({
   name,
   label,
@@ -11,6 +10,7 @@ export default function Input({
 }: {
   name: string
   label: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikProps<any>
   maxWidth?: string | number
 }) {
