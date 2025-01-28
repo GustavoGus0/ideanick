@@ -43,9 +43,9 @@ export default function NewIdeaPage() {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" formik={formik} />
-        <Input name="nick" label="Nick" formik={formik} />
-        <Input name="description" label="Description" formik={formik} />
+        <Input name="name" label="Name" formik={formik} maxWidth={200} />
+        <Input name="nick" label="Nick" formik={formik} maxWidth={200} />
+        <Input name="description" label="Description" formik={formik} maxWidth={500} />
         <Textarea name="text" label="Text" formik={formik} />
         {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
         {!!submittingError && <div style={{ color: 'red' }}>{submittingError}</div>}
