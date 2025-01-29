@@ -1,5 +1,7 @@
 import Alert from '../../components/Alert/Alert'
+import Button from '../../components/Button/Button'
 import Input from '../../components/Input/Input'
+import FormItems from '../../components/FormItems/FormItems'
 import Segment from '../../components/Segment/Segment'
 import Textarea from '../../components/Textarea/Textarea'
 import { useFormik } from 'formik'
@@ -44,16 +46,16 @@ export default function NewIdeaPage() {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" formik={formik} maxWidth={200} />
-        <Input name="nick" label="Nick" formik={formik} maxWidth={200} />
-        <Input name="description" label="Description" formik={formik} maxWidth={500} />
-        <Textarea name="text" label="Text" formik={formik} />
-        {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
-        {!!submittingError && <Alert color="red">{submittingError}</Alert>}
-        {successMessageVisible && <Alert color="green">Idea Created!</Alert>}
-        <button type="submit" disabled={formik.isSubmitting}>
-          {formik.isSubmitting ? 'Submitting...' : 'Create Idea'}
-        </button>
+        <FormItems>
+          <Input name="name" label="Name" formik={formik} maxWidth={200} />
+          <Input name="nick" label="Nick" formik={formik} maxWidth={200} />
+          <Input name="description" label="Description" formik={formik} maxWidth={500} />
+          <Textarea name="text" label="Text" formik={formik} />
+          {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
+          {!!submittingError && <Alert color="red">{submittingError}</Alert>}
+          {successMessageVisible && <Alert color="green">Idea Created!</Alert>}
+          <Button loading={formik.isSubmitting}>Create Idea</Button>
+        </FormItems>
       </form>
     </Segment>
   )
