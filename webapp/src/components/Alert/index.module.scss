@@ -1,17 +1,17 @@
-@import '../../styles/vars';
-@import '../../styles/mixins';
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mx;
 
 .alert {
   padding: 10px;
-  border-radius: $borderRadiusSmall;
+  border-radius: vars.$borderRadiusSmall;
 
   &.red {
-    background-color: $redBackground;
-    color: $redText;
+    background-color: vars.$redBackground;
+    color: vars.$redText;
   }
 
   &.green {
-    background-color: $greenBackground;
-    color: $greenText;
+    background-color: vars.$greenBackground;
+    color: vars.$greenText;
   }
 }

@@ -1,6 +1,6 @@
-@import '../../styles/vars';
-@import '../../styles/mixins';
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mx;
 
 .title {
-  @include h1;
+  @include mx.h1;
 }

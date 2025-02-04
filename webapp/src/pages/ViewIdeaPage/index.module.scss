@@ -1,5 +1,10 @@
-@import '../../styles/vars';
-@import '../../styles/mixins';
+@use '../../styles/vars' as vars;
+@use '../../styles/mixins' as mx;
+
+.createdAt {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
 
 .text {
   font-size: 14px;
