@@ -7,12 +7,14 @@ export default function Input({
   label,
   formik,
   maxWidth,
+  type = 'text',
 }: {
   name: string
   label: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikProps<any>
   maxWidth?: string | number
+  type?: 'text' | 'password'
 }) {
   const value = formik.values[name]
   const error = formik.errors[name] as string | undefined
@@ -30,7 +32,7 @@ export default function Input({
           [css.invalid]: invalid,
         })}
         style={{ maxWidth }}
-        type="text"
+        type={type}
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value)
         }}
