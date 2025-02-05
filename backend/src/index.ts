@@ -10,7 +10,7 @@ void (async () => {
     ctx = createAppContext()
     const expressApp = express()
     expressApp.use(cors())
-    applyTrpcToExpressApp(expressApp, ctx, trpcRouter)
+    await applyTrpcToExpressApp(expressApp, ctx, trpcRouter)
     expressApp.listen(3000, () => {
       // eslint-disable-next-line no-console
       console.info('Listening on http://localhost:3000')
