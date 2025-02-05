@@ -40,7 +40,7 @@ export default [
       'no-console': 'warn',
       'react-hooks/rules-of-hooks': 'error',
       'react-refresh/only-export-components': 'warn',
-      'typescript/no-explicit-any': 'warn',
+      'typescript/no-explicit-any': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       'prettier/prettier': ['error', eslintConfigPrettier],
       'no-shadow': 'warn',

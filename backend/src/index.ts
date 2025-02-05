@@ -16,6 +16,7 @@ void (async () => {
       console.info('Listening on http://localhost:3000')
     })
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(error)
     await ctx?.stop()
   }
