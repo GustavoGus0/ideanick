@@ -1,40 +1,28 @@
+import { zSignInTrpcInput } from '@ideanick/backend/src/router/signIn/input'
 import { useFormik } from 'formik'
 import { withZodSchema } from 'formik-validator-zod'
 import { useState } from 'react'
-import { z } from 'zod'
 import Alert from '../../components/Alert/Alert'
 import Button from '../../components/Button/Button'
 import FormItems from '../../components/FormItems/FormItems'
 import Input from '../../components/Input/Input'
 import Segment from '../../components/Segment/Segment'
 import { trpc } from '../../lib/trpc'
-import { zSignUpTrpcInput } from '@ideanick/backend/src/router/SignUp/input'
 
-export default function SignUpPage() {
+export default function SignInPage() {
   const [successMessageVisible, setSuccessMessageVisible] = useState<boolean>(false)
   const [submittingError, setSubmittingError] = useState<string | null>(null)
-  const signUp = trpc.signUp.useMutation()
+  const signIn = trpc.signIn.useMutation()
   const formik = useFormik({
     initialValues: {
       nick: '',
       password: '',
-      passwordAgain: '',
     },
-    validate: withZodSchema(
-      zSignUpTrpcInput.extend({ passwordAgain: z.string().min(4) }).superRefine((val, ctx) => {
-        if (val.password !== val.passwordAgain) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: 'Passwords must be the same',
-            path: ['passwordAgain'],
-          })
-        }
-      })
-    ),
+    validate: withZodSchema(zSignInTrpcInput),
     onSubmit: async (values) => {
       try {
         setSubmittingError(null)
-        await signUp.mutateAsync(values)
+        await signIn.mutateAsync(values)
         formik.resetForm()
         setSuccessMessageVisible(true)
         setTimeout(() => {
@@ -48,16 +36,15 @@ export default function SignUpPage() {
   })
 
   return (
-    <Segment title="Sign Up">
+    <Segment title="Sign In">
       <form onSubmit={formik.handleSubmit}>
         <FormItems>
-          <Input name="nick" label="Nick" formik={formik} maxWidth={200} />
-          <Input name="password" label="Password" type="password" formik={formik} maxWidth={200} />
-          <Input name="passwordAgain" label="Repeat Password" type="password" formik={formik} maxWidth={200} />
+          <Input label="Nick" name="nick" formik={formik} />
+          <Input label="Password" name="password" type="password" formik={formik} />
           {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
           {submittingError && <Alert color="red">{submittingError}</Alert>}
-          {successMessageVisible && <Alert color="green">Thanks for Sign Up!</Alert>}
-          <Button loading={formik.isSubmitting}>Sign Up</Button>
+          {successMessageVisible && <Alert color="green">Thanks for Sign In!</Alert>}
+          <Button loading={formik.isSubmitting}>Sign In</Button>
         </FormItems>
       </form>
     </Segment>
