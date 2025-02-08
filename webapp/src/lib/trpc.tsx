@@ -1,4 +1,5 @@
 import superjson from 'superjson'
+import Cookies from 'js-cookie'
 import { createTRPCReact } from '@trpc/react-query'
 import { httpBatchLink } from '@trpc/client'
 import type { TrpcRouter } from '@ideanick/backend/src/router/'
@@ -21,6 +22,13 @@ const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: 'http://localhost:3000/trpc',
+
+      headers: () => {
+        const token = Cookies.get('token')
+        return {
+          ...(token && { authorization: `Bearer ${token}` }),
+        }
+      },
     }),
   ],
 })

@@ -4,14 +4,18 @@ import { useState } from 'react'
 import { z } from 'zod'
 import Alert from '../../components/Alert/Alert'
 import Button from '../../components/Button/Button'
+import Cookies from 'js-cookie'
 import FormItems from '../../components/FormItems/FormItems'
 import Input from '../../components/Input/Input'
 import Segment from '../../components/Segment/Segment'
 import { trpc } from '../../lib/trpc'
 import { zSignUpTrpcInput } from '@ideanick/backend/src/router/SignUp/input'
+import { useNavigate } from 'react-router-dom'
+import { getAllIdeasRoute } from '../../lib/routes'
 
 export default function SignUpPage() {
-  const [successMessageVisible, setSuccessMessageVisible] = useState<boolean>(false)
+  const navigate = useNavigate()
+  const trpcUtils = trpc.useUtils()
   const [submittingError, setSubmittingError] = useState<string | null>(null)
   const signUp = trpc.signUp.useMutation()
   const formik = useFormik({
@@ -34,12 +38,10 @@ export default function SignUpPage() {
     onSubmit: async (values) => {
       try {
         setSubmittingError(null)
-        await signUp.mutateAsync(values)
-        formik.resetForm()
-        setSuccessMessageVisible(true)
-        setTimeout(() => {
-          setSuccessMessageVisible(false)
-        }, 3000)
+        const { token } = await signUp.mutateAsync(values)
+        Cookies.set('token', token, { expires: 99999 })
+        void trpcUtils.invalidate()
+        navigate(getAllIdeasRoute())
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setSubmittingError(error.message)
@@ -56,7 +58,6 @@ export default function SignUpPage() {
           <Input name="passwordAgain" label="Repeat Password" type="password" formik={formik} maxWidth={200} />
           {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
           {submittingError && <Alert color="red">{submittingError}</Alert>}
-          {successMessageVisible && <Alert color="green">Thanks for Sign Up!</Alert>}
           <Button loading={formik.isSubmitting}>Sign Up</Button>
         </FormItems>
       </form>
