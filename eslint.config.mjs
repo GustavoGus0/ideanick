@@ -7,6 +7,7 @@ import js from '@eslint/js'
 import prettierPlugin from 'eslint-plugin-prettier'
 import tseslint from 'typescript-eslint'
 import typescriptPlugin from 'eslint-plugin-typescript'
+import nodePlugin from 'eslint-plugin-node'
 
 /** @type {import{'eslint'}.Linter.FlatConfig[]} */
 export default [
@@ -17,6 +18,7 @@ export default [
       'react-refresh': eslintReactRefresh,
       prettier: prettierPlugin,
       typescript: typescriptPlugin,
+      node: nodePlugin,
     },
   },
   {
@@ -67,6 +69,7 @@ export default [
       ],
       '@typescript-eslint/no-non-null-assertion': 'error',
       'linebreak-style': ['error', 'unix'],
+      'node/no-process-env': 'error'
     },
   },
 ]

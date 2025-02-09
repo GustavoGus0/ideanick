@@ -4,6 +4,7 @@ import express from 'express'
 import { trpcRouter } from './router'
 import { AppContext, createAppContext } from './lib/ctx'
 import { applyPassportToExpressApp } from './lib/passport'
+import { env } from './lib/env'
 
 void (async () => {
   let ctx: AppContext | null = null
@@ -13,9 +14,9 @@ void (async () => {
     expressApp.use(cors())
     applyPassportToExpressApp(expressApp, ctx)
     await applyTrpcToExpressApp(expressApp, ctx, trpcRouter)
-    expressApp.listen(3000, () => {
+    expressApp.listen(env.PORT, () => {
       // eslint-disable-next-line no-console
-      console.info('Listening on http://localhost:3000')
+      console.info(`Listening on http://localhost:${env.PORT}`)
     })
   } catch (error) {
     // eslint-disable-next-line no-console
