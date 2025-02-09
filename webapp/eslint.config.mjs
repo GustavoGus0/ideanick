@@ -60,6 +60,10 @@ export default [
       'no-console': 'warn',
       'react-refresh/only-export-components': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'error',
+      'no-restricted-syntax': ['error', {
+        selector: '[object.type=MetaProperty][property.name=env]',
+        message: 'Import meta.env directly is restricted. Use instead import { env } from "lib/env.ts".',
+      }]
     },
   },
 ]

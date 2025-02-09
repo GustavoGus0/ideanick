@@ -69,7 +69,11 @@ export default [
       ],
       '@typescript-eslint/no-non-null-assertion': 'error',
       'linebreak-style': ['error', 'unix'],
-      'node/no-process-env': 'error'
+      'node/no-process-env': 'error',
+      'no-restricted-syntax': ['error', {
+        selector: '[object.type=MetaProperty][property.name=env]',
+        message: 'Import meta.env directly is restricted. Use instead import { env } from "lib/env.ts".',
+      }]
     },
   },
 ]
