@@ -5,8 +5,10 @@ import { getIdeasTrpcRoute } from './getIdeas'
 import { getMeTrpcRoute } from './getMe'
 import { signInTrpcRoute } from './signIn'
 import { signUpTrpcRoute } from './signUp'
+import { updateIdeaTrpcRoute } from './updateIdea'
 // @endindex
 import { trpc } from '../lib/trpc'
+import { inferRouterInputs, inferRouterOutputs } from '@trpc/server'
 
 export const trpcRouter = trpc.router({
   // @index('./**/index.ts', f => `${f.path.split('/').slice(0, -1).pop()}: ${f.path.split('/').slice(0, -1).pop()}TrpcRoute,`)
@@ -16,7 +18,10 @@ export const trpcRouter = trpc.router({
   getMe: getMeTrpcRoute,
   signIn: signInTrpcRoute,
   signUp: signUpTrpcRoute,
+  updateIdea: updateIdeaTrpcRoute,
   // @endindex
 })
 
 export type TrpcRouter = typeof trpcRouter
+export type TrpcRouterInput = inferRouterInputs<TrpcRouter>
+export type TrpcRouterOutput = inferRouterOutputs<TrpcRouter>

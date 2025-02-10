@@ -1,5 +1,5 @@
 import Alert from '../../components/Alert/Alert'
-import Button from '../../components/Button/Button'
+import { Button } from '../../components/Button/Button'
 import Input from '../../components/Input/Input'
 import FormItems from '../../components/FormItems/FormItems'
 import Segment from '../../components/Segment/Segment'
