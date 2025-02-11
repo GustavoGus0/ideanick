@@ -1,9 +1,6 @@
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router'
 import { zUpdateIdeaTrpcInput } from '@ideanick/backend/src/router/updateIdea/input'
-import { useFormik } from 'formik'
-import { withZodSchema } from 'formik-validator-zod'
 import pick from 'lodash/pick'
-import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Alert from '../../components/Alert/Alert'
 import { Button } from '../../components/Button/Button'
@@ -12,25 +9,21 @@ import Input from '../../components/Input/Input'
 import Segment from '../../components/Segment/Segment'
 import Textarea from '../../components/Textarea/Textarea'
 import { type EditIdeaRouteParams, getViewIdeaRoute } from '../../lib/routes'
+import useForm from '../../lib/form'
 import { trpc } from '../../lib/trpc'
 
 function EditIdeaComponent({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) {
   const navigate = useNavigate()
-  const [submittingError, setSubmittingError] = useState<string | null>(null)
   const updateIdea = trpc.updateIdea.useMutation()
-  const formik = useFormik({
+  const { formik, alertProps, buttonProps } = useForm({
     initialValues: pick(idea, ['name', 'nick', 'description', 'text']),
-    validate: withZodSchema(zUpdateIdeaTrpcInput.omit({ ideaId: true })),
+    validationSchema: zUpdateIdeaTrpcInput.omit({ ideaId: true }),
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null)
-        await updateIdea.mutateAsync({ ideaId: idea.id, ...values })
-        navigate(getViewIdeaRoute({ ideaNick: values.nick }))
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        setSubmittingError(error.message)
-      }
+      await updateIdea.mutateAsync({ ideaId: idea.id, ...values })
+      navigate(getViewIdeaRoute({ ideaNick: values.nick }))
     },
+    resetOnSuccess: false,
+    showValidationAlert: true,
   })
 
   return (
@@ -41,11 +34,8 @@ function EditIdeaComponent({ idea }: { idea: NonNullable<TrpcRouterOutput['getId
           <Input label="Nick" name="nick" formik={formik} />
           <Input label="Description" name="description" formik={formik} />
           <Textarea label="Text" name="text" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-            <Button loading={formik.isSubmitting}>Edit Idea</Button>
-          </div>
+          <Alert {...alertProps} />
+          <Button {...buttonProps}>Edit Idea</Button>
         </FormItems>
       </form>
     </Segment>

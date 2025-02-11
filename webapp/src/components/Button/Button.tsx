@@ -2,7 +2,8 @@ import cn from 'classnames'
 import css from './index.module.scss'
 import { Link } from 'react-router-dom'
 
-export function Button({ children, loading = false }: { children: React.ReactNode; loading?: boolean }) {
+export type ButtonProps = { children: React.ReactNode; loading?: boolean }
+export function Button({ children, loading = false }: ButtonProps) {
   return (
     <button
       className={cn({
