@@ -11,6 +11,7 @@ import Textarea from '../../components/Textarea/Textarea'
 import { type EditIdeaRouteParams, getViewIdeaRoute } from '../../lib/routes'
 import useForm from '../../lib/form'
 import { trpc } from '../../lib/trpc'
+import { useMe } from '../../lib/ctx'
 
 function EditIdeaComponent({ idea }: { idea: NonNullable<TrpcRouterOutput['getIdea']['idea']> }) {
   const navigate = useNavigate()
@@ -48,9 +49,9 @@ export default function EditIdeaPage() {
   const getIdeaResult = trpc.getIdea.useQuery({
     ideaNick,
   })
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
 
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
     return <span>Loading...</span>
   }
 
@@ -58,16 +59,11 @@ export default function EditIdeaPage() {
     return <span>Error: {getIdeaResult.error.message}</span>
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>
-  }
-
   if (!getIdeaResult.data.idea) {
     return <span>Idea not found</span>
   }
 
   const idea = getIdeaResult.data.idea
-  const me = getMeResult.data.me
 
   if (!me) {
     return <span>Only for authorized</span>

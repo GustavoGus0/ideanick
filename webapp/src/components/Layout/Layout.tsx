@@ -1,10 +1,10 @@
 import css from './index.module.scss'
 import { getAllIdeasRoute, getNewIdeaRoute, getSignInRoute, getSignOutRoute, getSignUpRoute } from '../../lib/routes'
 import { Link, Outlet } from 'react-router-dom'
-import { trpc } from '../../lib/trpc'
+import { useMe } from '../../lib/ctx'
 
 export default function Layout() {
-  const { data, isLoading, isFetching, isError } = trpc.getMe.useQuery()
+  const me = useMe()
 
   return (
     <div className={css.layout}>
@@ -16,7 +16,7 @@ export default function Layout() {
               All Ideas
             </Link>
           </li>
-          {isLoading || isFetching || isError ? null : data.me ? (
+          {me ? (
             <>
               <li className={css.item}>
                 <Link className={css.link} to={getNewIdeaRoute()}>
