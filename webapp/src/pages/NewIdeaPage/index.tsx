@@ -1,12 +1,12 @@
-import { Button } from '../../components/Button/Button'
-import Input from '../../components/Input/Input'
-import FormItems from '../../components/FormItems/FormItems'
-import Segment from '../../components/Segment/Segment'
-import Textarea from '../../components/Textarea/Textarea'
+import { Button } from '../../components/Button'
+import Input from '../../components/Input'
+import FormItems from '../../components/FormItems'
+import Segment from '../../components/Segment'
+import Textarea from '../../components/Textarea'
 import { trpc } from '../../lib/trpc'
 import { zCreateIdeaTrpcInput } from '@ideanick/backend/src/router/createIdea/input'
 import useForm from '../../lib/form'
-import Alert from '../../components/Alert/Alert'
+import Alert from '../../components/Alert'
 
 export default function NewIdeaPage() {
   const createIdea = trpc.createIdea.useMutation()

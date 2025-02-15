@@ -1,11 +1,11 @@
 import css from './index.module.scss'
-import Segment from '../../components/Segment/Segment'
+import Segment from '../../components/Segment'
 import { trpc } from '../../lib/trpc'
 import { useParams } from 'react-router-dom'
 import { format } from 'date-fns/format'
 import { type ViewIdeaRouteParams } from '../../lib/routes'
 import { getEditIdeaRoute } from '../../lib/routes'
-import { LinkButton } from '../../components/Button/Button'
+import { LinkButton } from '../../components/Button'
 import { useMe } from '../../lib/ctx'
 
 export default function ViewIdeaPage() {
