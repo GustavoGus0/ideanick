@@ -6,30 +6,23 @@ import { format } from 'date-fns/format'
 import { type ViewIdeaRouteParams } from '../../lib/routes'
 import { getEditIdeaRoute } from '../../lib/routes'
 import { LinkButton } from '../../components/Button'
-import { useMe } from '../../lib/ctx'
+import { withPageWrapper } from '../../lib/pageWrapper'
 
-export default function ViewIdeaPage() {
-  const { ideaNick } = useParams() as ViewIdeaRouteParams
-
-  const getIdeaResult = trpc.getIdea.useQuery({
-    ideaNick,
-  })
-  const me = useMe()
-
-  if (getIdeaResult.isLoading || getIdeaResult.isFetching) {
-    return <span>Loading...</span>
-  }
-
-  if (getIdeaResult.isError) {
-    return <span>Error: {getIdeaResult.error.message}</span>
-  }
-
-  if (!getIdeaResult.data.idea) {
-    return <span>Idea not found</span>
-  }
-
-  const idea = getIdeaResult.data.idea
-
+export const ViewIdeaPage = withPageWrapper({
+  useQuery: () => {
+    const { ideaNick } = useParams() as ViewIdeaRouteParams
+    return trpc.getIdea.useQuery({
+      ideaNick,
+    })
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.idea,
+  checkExistsMessage: 'Idea not found',
+  setProps: ({ queryResult, ctx }) => ({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    idea: queryResult.data.idea!,
+    me: ctx.me,
+  }),
+})(({ idea, me }) => {
   return (
     <Segment title={idea.name} description={idea.description}>
       <div className={css.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div>
@@ -42,4 +35,4 @@ export default function ViewIdeaPage() {
       )}
     </Segment>
   )
-}
+})

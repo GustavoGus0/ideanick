@@ -63,7 +63,8 @@ export default [
       'no-restricted-syntax': ['error', {
         selector: '[object.type=MetaProperty][property.name=env]',
         message: 'Import meta.env directly is restricted. Use instead import { env } from "lib/env.ts".',
-      }]
+      }],
+      '@typescript-eslint/no-empty-object-type': 'off'
     },
   },
 ]

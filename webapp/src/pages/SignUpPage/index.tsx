@@ -7,12 +7,12 @@ import Input from '../../components/Input'
 import Segment from '../../components/Segment'
 import { trpc } from '../../lib/trpc'
 import { zSignUpTrpcInput } from '@ideanick/backend/src/router/SignUp/input'
-import { useNavigate } from 'react-router-dom'
-import { getAllIdeasRoute } from '../../lib/routes'
 import useForm from '../../lib/form'
+import { withPageWrapper } from '../../lib/pageWrapper'
 
-export default function SignUpPage() {
-  const navigate = useNavigate()
+export const SignUpPage = withPageWrapper({
+  redirectAuthorized: true,
+})(() => {
   const trpcUtils = trpc.useUtils()
   const signUp = trpc.signUp.useMutation()
   const { formik, alertProps, buttonProps } = useForm({
@@ -34,7 +34,6 @@ export default function SignUpPage() {
       const { token } = await signUp.mutateAsync(values)
       Cookies.set('token', token, { expires: 99999 })
       void trpcUtils.invalidate()
-      navigate(getAllIdeasRoute())
     },
     resetOnSuccess: false,
   })
@@ -52,4 +51,4 @@ export default function SignUpPage() {
       </form>
     </Segment>
   )
-}
+})
