@@ -17,7 +17,7 @@ export default function Layout() {
     <div className={css.layout}>
       <div className={css.navigation}>
         <div className={css.logo}>IdeaNick</div>
-        <p className={css.loggedAs}>
+        <p className={css.loggedAs} style={!me ? { display: 'none' } : {}}>
           Logged as <span style={{ fontWeight: 'bold' }}>{me?.nick}</span>
         </p>
         <ul className={css.menu}>
