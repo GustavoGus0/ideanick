@@ -20,13 +20,10 @@ export const EditIdeaPage = withPageWrapper({
       ideaNick,
     })
   },
-  checkExists: ({ queryResult }) => !!queryResult.data.idea,
-  checkExistsMessage: 'Idea not found',
-  checkAccess: ({ queryResult, ctx }) => !!ctx.me && ctx.me.id === queryResult.data.idea?.authorId,
-  checkAccessMessage: 'An idea can only be edited by its author',
-  setProps: ({ queryResult }) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return { idea: queryResult.data.idea! }
+  setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
+    const idea = checkExists(queryResult.data.idea, 'Idea not found')
+    checkAccess(ctx.me?.id === idea.authorId, 'An idea can only be edited by its author only')
+    return { idea }
   },
 })(({ idea }) => {
   const navigate = useNavigate()
