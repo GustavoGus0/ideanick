@@ -3,17 +3,18 @@ import css from './index.module.scss'
 import { Link } from 'react-router-dom'
 
 export type ButtonProps = { children: React.ReactNode; loading?: boolean }
-export function Button({ children, loading = false }: ButtonProps) {
+export function Button({ children, loading = true }: ButtonProps) {
   return (
     <button
       className={cn({
         [css.button]: true,
         [css.disabled]: loading,
+        [css.loading]: loading,
       })}
       type="submit"
       disabled={loading}
     >
-      {loading ? 'Submitting...' : children}
+      <span className={css.text}>{children}</span>
     </button>
   )
 }

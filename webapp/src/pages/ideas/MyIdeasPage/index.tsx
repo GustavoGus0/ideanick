@@ -9,6 +9,7 @@ import Alert from '../../../components/Alert'
 import InfiniteScroll from 'react-infinite-scroller'
 import { layoutContextElRef } from '../../../components/Layout'
 import { useMe } from '../../../lib/ctx'
+import { Loader } from '../../../components/Loader'
 
 export default function MyIdeasPage() {
   const me = useMe()
@@ -38,7 +39,7 @@ export default function MyIdeasPage() {
 
   return isLoading || isRefetching ? (
     <Segment title="My Ideas">
-      <span>Loading...</span>
+      <Loader type="page" />
     </Segment>
   ) : isError ? (
     <Alert color="red">{error.message}</Alert>
@@ -61,11 +62,7 @@ export default function MyIdeasPage() {
               }
             }}
             hasMore={hasNextPage}
-            loader={
-              <div className={css.more} key="loader">
-                Loading...
-              </div>
-            }
+            loader={<Loader type="page" />}
             getScrollParent={() => layoutContextElRef.current}
             useWindow={(layoutContextElRef.current && getComputedStyle(layoutContextElRef.current).overflow) !== 'auto'}
           >

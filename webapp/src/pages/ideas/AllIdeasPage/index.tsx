@@ -6,6 +6,7 @@ import { trpc } from '../../../lib/trpc'
 import Alert from '../../../components/Alert'
 import InfiniteScroll from 'react-infinite-scroller'
 import { layoutContextElRef } from '../../../components/Layout'
+import { Loader } from '../../../components/Loader'
 
 export default function AllIdeasPage() {
   const { data, error, isLoading, isError, hasNextPage, fetchNextPage, isFetchingNextPage, isRefetching } =
@@ -23,7 +24,7 @@ export default function AllIdeasPage() {
   return (
     <Segment title={'All Ideas'}>
       {isLoading || isRefetching ? (
-        <div>Loading...</div>
+        <Loader type="section" />
       ) : isError ? (
         <Alert color="red">{error.message}</Alert>
       ) : (
@@ -38,7 +39,7 @@ export default function AllIdeasPage() {
             hasMore={hasNextPage}
             loader={
               <div className={css.more} key="loader">
-                Loading...
+                <Loader type="section" />
               </div>
             }
             getScrollParent={() => layoutContextElRef.current}
