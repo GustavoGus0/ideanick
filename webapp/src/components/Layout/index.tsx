@@ -10,6 +10,10 @@ import {
 } from '../../lib/routes'
 import { Link, Outlet } from 'react-router-dom'
 import { useMe } from '../../lib/ctx'
+import { createRef } from 'react'
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const layoutContextElRef = createRef<HTMLDivElement>()
 
 export default function Layout() {
   const me = useMe()
@@ -66,7 +70,7 @@ export default function Layout() {
           )}
         </ul>
       </div>
-      <div className={css.content}>
+      <div className={css.content} ref={layoutContextElRef}>
         <Outlet />
       </div>
     </div>
