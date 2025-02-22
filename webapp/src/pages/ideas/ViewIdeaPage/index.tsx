@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { format } from 'date-fns/format'
 import { type ViewIdeaRouteParams } from '../../../lib/routes'
 import { getEditIdeaRoute } from '../../../lib/routes'
-import { LinkButton } from '../../../components/Button'
+import { LikeButton, LinkButton } from '../../../components/Button'
 import { withPageWrapper } from '../../../lib/pageWrapper'
 
 export const ViewIdeaPage = withPageWrapper({
@@ -19,6 +19,7 @@ export const ViewIdeaPage = withPageWrapper({
     idea: checkExists(queryResult.data.idea, 'Idea not found'),
     me: ctx.me,
   }),
+  showLoaderOnFetching: false,
 })(({ idea, me }) => {
   return (
     <Segment title={idea.name} description={idea.description}>
@@ -28,6 +29,15 @@ export const ViewIdeaPage = withPageWrapper({
         {idea.author.name ? ' ' + `(${idea.author.name})` : ' '}
       </div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
+      <div className={css.likes}>
+        Likes: {idea.likesCount}
+        {me && idea.authorId !== me.id && (
+          <>
+            <br />
+            <LikeButton idea={idea} />
+          </>
+        )}
+      </div>
       {me?.id === idea.authorId && (
         <div className={css.editButton}>
           <LinkButton to={getEditIdeaRoute({ ideaNick: idea.nick })}>Edit Idea</LinkButton>

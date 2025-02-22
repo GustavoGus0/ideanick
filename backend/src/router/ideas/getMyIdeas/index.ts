@@ -1,11 +1,12 @@
 import { trpc } from '../../../lib/trpc'
 import { zGetIdeasTrpcInput } from '../getIdeas/input'
+import _ from 'lodash'
 
 export const getMyIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).query(async ({ ctx, input }) => {
   if (!ctx.me) {
     throw new Error('You need to be authorized to create and keep your own ideas')
   }
-  const myIdeas = await ctx.prisma.idea.findMany({
+  const rawMyIdeas = await ctx.prisma.idea.findMany({
     where: { authorId: ctx.me.id },
     select: {
       id: true,
@@ -14,16 +15,31 @@ export const getMyIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).quer
       description: true,
       authorId: true,
       serialNumber: true,
+
+      _count: {
+        select: {
+          ideasLikes: true,
+        },
+      },
     },
-    orderBy: {
-      createdAt: 'desc',
-    },
+    orderBy: [
+      {
+        createdAt: 'desc',
+      },
+      {
+        serialNumber: 'desc',
+      },
+    ],
     cursor: input.cursor ? { serialNumber: input.cursor } : undefined,
     take: input.limit + 1,
   })
-  const nextIdea = myIdeas.at(input.limit)
+  const nextIdea = rawMyIdeas.at(input.limit)
   const nextCursor = nextIdea?.serialNumber
-  const ideasExceptNext = myIdeas.slice(0, input.limit)
+  const rawMyIdeasExceptNext = rawMyIdeas.slice(0, input.limit)
+  const myIdeasExceptNext = rawMyIdeasExceptNext.map((idea) => ({
+    ..._.omit(idea, ['_count']),
+    likesCount: idea._count.ideasLikes,
+  }))
 
-  return { ideas: ideasExceptNext, nextCursor }
+  return { ideas: myIdeasExceptNext, nextCursor }
 })

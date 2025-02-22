@@ -34,3 +34,7 @@
     }
   }
 }
+
+.likeButton {
+  @include mx.link;
+}
