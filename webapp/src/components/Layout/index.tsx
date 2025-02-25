@@ -2,6 +2,7 @@ import css from './index.module.scss'
 import {
   getAllIdeasRoute,
   getEditProfileRoute,
+  getLikedIdeasRoute,
   getMyIdeasRoute,
   getNewIdeaRoute,
   getSignInRoute,
@@ -36,6 +37,11 @@ export default function Layout() {
               <li className={css.item}>
                 <Link className={css.link} to={getMyIdeasRoute()}>
                   My Ideas
+                </Link>
+              </li>
+              <li className={css.item}>
+                <Link className={css.link} to={getLikedIdeasRoute()}>
+                  Liked Ideas
                 </Link>
               </li>
               <li className={css.item}>

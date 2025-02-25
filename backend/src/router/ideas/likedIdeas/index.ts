@@ -2,12 +2,18 @@ import { trpc } from '../../../lib/trpc'
 import { zGetIdeasTrpcInput } from '../getIdeas/input'
 import _ from 'lodash'
 
-export const getMyIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).query(async ({ ctx, input }) => {
+export const getLikedIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).query(async ({ ctx, input }) => {
   if (!ctx.me) {
-    throw Error('UNAUTHORIZED')
+    throw new Error('UNAUTHORIZED')
   }
-  const rawMyIdeas = await ctx.prisma.idea.findMany({
-    where: { authorId: ctx.me?.id },
+  const rawLikedIdeas = await ctx.prisma.idea.findMany({
+    where: {
+      ideasLikes: {
+        some: {
+          userId: ctx.me?.id,
+        },
+      },
+    },
     select: {
       id: true,
       nick: true,
@@ -33,13 +39,12 @@ export const getMyIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).quer
     cursor: input.cursor ? { serialNumber: input.cursor } : undefined,
     take: input.limit + 1,
   })
-  const nextIdea = rawMyIdeas.at(input.limit)
+  const nextIdea = rawLikedIdeas.at(input.limit)
   const nextCursor = nextIdea?.serialNumber
-  const rawMyIdeasExceptNext = rawMyIdeas.slice(0, input.limit)
-  const myIdeasExceptNext = rawMyIdeasExceptNext.map((idea) => ({
+  const rawLikedIdeasExceptNext = rawLikedIdeas.slice(0, input.limit)
+  const likedIdeasExceptNext = rawLikedIdeasExceptNext.map((idea) => ({
     ..._.omit(idea, ['_count']),
     likesCount: idea._count.ideasLikes,
   }))
-
-  return { ideas: myIdeasExceptNext, nextCursor }
+  return { likedIdeas: likedIdeasExceptNext, nextCursor }
 })

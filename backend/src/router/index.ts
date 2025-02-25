@@ -8,6 +8,7 @@ import { createIdeaTrpcRoute } from './ideas/createIdea'
 import { getIdeaTrpcRoute } from './ideas/getIdea'
 import { getIdeasTrpcRoute } from './ideas/getIdeas'
 import { getMyIdeasTrpcRoute } from './ideas/getMyIdeas'
+import { getLikedIdeasTrpcRoute } from './ideas/likedIdeas'
 import { setIdeaLikeTrpcRoute } from './ideas/setIdeaLike'
 import { updateIdeaTrpcRoute } from './ideas/updateIdea'
 // @endindex
@@ -25,6 +26,7 @@ export const trpcRouter = trpc.router({
   getIdea: getIdeaTrpcRoute,
   getIdeas: getIdeasTrpcRoute,
   getMyIdeas: getMyIdeasTrpcRoute,
+  getLikedIdeas: getLikedIdeasTrpcRoute,
   setIdeaLike: setIdeaLikeTrpcRoute,
   updateIdea: updateIdeaTrpcRoute,
   // @endindex

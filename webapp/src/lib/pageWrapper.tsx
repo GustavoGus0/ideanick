@@ -95,12 +95,12 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
     return <Loader type="page" />
   }
 
-  if (queryResult?.isError) {
-    return <ErrorPageComponent message={queryResult.error.message} />
-  }
-
   if (authorizedOnly && !ctx.me) {
     return <ErrorPageComponent title={authorizedOnlyTitle} message={authorizedOnlyMessage} />
+  }
+
+  if (queryResult?.isError) {
+    return <ErrorPageComponent message={queryResult.error.message} />
   }
 
   const helperProps = { ctx, queryResult: queryResult as never }

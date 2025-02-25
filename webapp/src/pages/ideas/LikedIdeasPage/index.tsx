@@ -1,19 +1,18 @@
 import css from '../AllIdeasPage/index.module.scss'
-import { getNewIdeaRoute, getViewIdeaRoute } from '../../../lib/routes'
-import Segment from '../../../components/Segment'
-import { trpc } from '../../../lib/trpc'
-import { LinkButton } from '../../../components/Button'
-import { Link } from 'react-router-dom'
-import InfiniteScroll from 'react-infinite-scroller'
-import { layoutContextElRef } from '../../../components/Layout'
-import { Loader } from '../../../components/Loader'
 import { withPageWrapper } from '../../../lib/pageWrapper'
+import { trpc } from '../../../lib/trpc'
+import Segment from '../../../components/Segment'
+import InfiniteScroll from 'react-infinite-scroller'
+import { Loader } from '../../../components/Loader'
+import { layoutContextElRef } from '../../../components/Layout'
+import { Link } from 'react-router-dom'
+import { getViewIdeaRoute } from '../../../lib/routes'
 import { UseTRPCInfiniteQueryResult } from '@trpc/react-query/shared'
 
-export const MyIdeasPage = withPageWrapper({
+export const LikedIdeasPage = withPageWrapper({
   authorizedOnly: true,
   useQuery: () => {
-    return trpc.getMyIdeas.useInfiniteQuery(
+    return trpc.getLikedIdeas.useInfiniteQuery(
       {
         limit: 4,
       },
@@ -28,20 +27,19 @@ export const MyIdeasPage = withPageWrapper({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const infiniteQueryResult = queryResult as UseTRPCInfiniteQueryResult<any, any>
     return {
-      myIdeas: queryResult.data.pages.flatMap((page) => page.ideas),
+      likedIdeas: queryResult.data.pages.flatMap((page) => page.likedIdeas),
       isFetchingNextPage: infiniteQueryResult.isFetchingNextPage,
       hasNextPage: infiniteQueryResult.hasNextPage,
       fetchNextPage: infiniteQueryResult.fetchNextPage,
     }
   },
-})(({ myIdeas, isFetchingNextPage, hasNextPage, fetchNextPage }) => {
+})(({ likedIdeas, isFetchingNextPage, hasNextPage, fetchNextPage }) => {
   return (
-    <Segment title={myIdeas.length === 0 ? 'Hmm..' : 'My Ideas'}>
+    <Segment title={likedIdeas.length === 0 ? 'Hmm..' : 'Liked Ideas'}>
       <div className={css.ideas}>
-        {myIdeas.length === 0 ? (
+        {likedIdeas.length === 0 ? (
           <div className={css.noIdeasMessage}>
-            <p>It seems you have no ideas yet...</p>
-            <LinkButton to={getNewIdeaRoute()}>Create an idea</LinkButton>
+            <p>It seems you have no liked ideas</p>
           </div>
         ) : (
           <InfiniteScroll
@@ -56,7 +54,7 @@ export const MyIdeasPage = withPageWrapper({
             getScrollParent={() => layoutContextElRef.current}
             useWindow={(layoutContextElRef.current && getComputedStyle(layoutContextElRef.current).overflow) !== 'auto'}
           >
-            {myIdeas.map((idea) => (
+            {likedIdeas.map((idea) => (
               <div className={css.idea} key={idea.nick}>
                 <Segment
                   size={2}

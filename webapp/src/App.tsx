@@ -13,7 +13,8 @@ import { EditIdeaPage } from './pages/ideas/EditIdeaPage'
 import { AppContextProvider } from './lib/ctx'
 import NotFoundPage from './pages/other/NotFoundPage'
 import { EditProfilePage } from './pages/auth/EditProfilePage'
-import MyIdeasPage from './pages/ideas/MyIdeasPage'
+import { MyIdeasPage } from './pages/ideas/MyIdeasPage'
+import { LikedIdeasPage } from './pages/ideas/LikedIdeasPage'
 
 export const App = () => {
   return (
@@ -27,6 +28,7 @@ export const App = () => {
               <Route path={routes.getSignInRoute()} element={<SignInPage />} />
               <Route path={routes.getAllIdeasRoute()} element={<AllIdeasPage />} />
               <Route path={routes.getMyIdeasRoute()} element={<MyIdeasPage />} />
+              <Route path={routes.getLikedIdeasRoute()} element={<LikedIdeasPage />} />
               <Route path={routes.getNewIdeaRoute()} element={<NewIdeaPage />} />
               <Route path={routes.getEditProfileRoute()} element={<EditProfilePage />} />
               <Route path={routes.getViewIdeaRoute(routes.viewIdeaRouteParams)} element={<ViewIdeaPage />} />

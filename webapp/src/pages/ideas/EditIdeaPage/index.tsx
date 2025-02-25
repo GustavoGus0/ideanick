@@ -22,7 +22,7 @@ export const EditIdeaPage = withPageWrapper({
   },
   setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
     const idea = checkExists(queryResult.data.idea, 'Idea not found')
-    checkAccess(ctx.me?.id === idea.authorId, 'An idea can only be edited by its author only')
+    checkAccess(ctx.me?.id === idea.authorId, 'An idea can be edited by its author only')
     return { idea }
   },
 })(({ idea }) => {
