@@ -14,4 +14,9 @@
     background-color: vars.$greenBackground;
     color: vars.$greenText;
   }
+
+  &.brown {
+    background-color: vars.$brownBackground;
+    color: vars.$brownText;
+  }
 }

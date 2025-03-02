@@ -1,6 +1,10 @@
 @use '../../../styles/vars' as vars;
 @use '../../../styles/mixins' as mx;
 
+.filter {
+  margin-bottom: 20px;
+}
+
 .ideas {
   .noIdeasMessage {
     display: flex;

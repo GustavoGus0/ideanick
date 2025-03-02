@@ -7,6 +7,7 @@ import { type AppContext, useAppContext } from './ctx'
 import { getAllIdeasRoute } from './routes'
 import NotFoundPage from '../pages/other/NotFoundPage'
 import { Loader } from '../components/Loader'
+import useForm from './form'
 
 class CheckExistsError extends Error {}
 const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
@@ -54,6 +55,10 @@ type PageWrapperProps<TProps extends Props, TQueryResult extends QueryResult | u
   checkExists?: (helperProps: HelperProps<TQueryResult>) => boolean
   checkExistsTitle?: string
   checkExistsMessage?: string
+
+  debounceValue?: { value: string; delay: number }
+
+  useForm: typeof useForm
 
   showLoaderOnFetching?: boolean
 

@@ -23,14 +23,17 @@ export default function Input({
   const disabled = formik.isSubmitting
   return (
     <div className={cn({ [css.field]: true, [css.disabled]: disabled })}>
-      <label className={css.label} htmlFor={name}>
-        {label}
-      </label>
+      {name !== 'search' && (
+        <label className={css.label} htmlFor={name}>
+          {label}
+        </label>
+      )}
       <input
         className={cn({
           [css.input]: true,
           [css.invalid]: invalid,
         })}
+        placeholder={name === 'search' ? 'Search...' : ''}
         style={{ maxWidth }}
         type={type}
         onChange={(e) => {
