@@ -13,6 +13,7 @@ export const getLikedIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).q
           userId: ctx.me?.id,
         },
       },
+      blockedAt: null,
     },
     select: {
       id: true,

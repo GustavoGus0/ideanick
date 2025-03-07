@@ -7,7 +7,7 @@ export const getMyIdeasTrpcRoute = trpc.procedure.input(zGetIdeasTrpcInput).quer
     throw Error('UNAUTHORIZED')
   }
   const rawMyIdeas = await ctx.prisma.idea.findMany({
-    where: { authorId: ctx.me?.id },
+    where: { authorId: ctx.me?.id, blockedAt: null },
     select: {
       id: true,
       nick: true,

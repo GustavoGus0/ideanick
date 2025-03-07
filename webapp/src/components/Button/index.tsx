@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom'
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router'
 import { trpc } from '../../lib/trpc'
 
-export type ButtonProps = { children: React.ReactNode; loading?: boolean }
-export function Button({ children, loading = true }: ButtonProps) {
+type ButtonColor = 'red' | 'green'
+export type ButtonProps = { children: React.ReactNode; loading?: boolean; color?: ButtonColor }
+export function Button({ children, loading = true, color = 'green' }: ButtonProps) {
   return (
     <button
       className={cn({
         [css.button]: true,
         [css.disabled]: loading,
         [css.loading]: loading,
+        [css[`color-${color}`]]: true,
       })}
       type="submit"
       disabled={loading}
@@ -21,9 +23,17 @@ export function Button({ children, loading = true }: ButtonProps) {
   )
 }
 
-export function LinkButton({ children, to }: { children: React.ReactNode; to: string }) {
+export function LinkButton({
+  children,
+  to,
+  color = 'green',
+}: {
+  children: React.ReactNode
+  to: string
+  color?: ButtonColor
+}) {
   return (
-    <Link className={cn({ [css.button]: true })} to={to}>
+    <Link className={cn({ [css.button]: true, [css[`color-${color}`]]: true })} to={to}>
       {children}
     </Link>
   )

@@ -35,36 +35,38 @@ export default [
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
 
-
     rules: {
       '@typescript-eslint/no-restricted-imports': [
-  'error',
-  {
-    paths: [
-      {
-        name: '@ideanick/backend',
-        message: 'Imports from backend workspace are restricted',
-        allowTypeImports: true,
-      },
-    ],
-    patterns: [
-      {
-        group: ['@ideanick/backend/**', '!@ideanick/backend/**/', '!@ideanick/backend/**/input'],
-        message: 'Only types and input schemas are allowed to be imported from backend workspace',
-        allowTypeImports: true,
-      },
-    ],
-  },
-],
+        'error',
+        {
+          paths: [
+            {
+              name: '@ideanick/backend',
+              message: 'Imports from backend workspace are restricted',
+              allowTypeImports: true,
+            },
+          ],
+          patterns: [
+            {
+              group: ['@ideanick/backend/**', '!@ideanick/backend/**/', '!@ideanick/backend/**/input', '!@ideanick/backend/src/utils/can'],
+              message: 'Only types and input schemas are allowed to be imported from backend workspace',
+              allowTypeImports: true,
+            },
+          ],
+        },
+      ],
       'typescript/no-explicit-any': 'off',
       'no-console': 'warn',
       'react-refresh/only-export-components': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'error',
-      'no-restricted-syntax': ['error', {
-        selector: '[object.type=MetaProperty][property.name=env]',
-        message: 'Import meta.env directly is restricted. Use instead import { env } from "lib/env.ts".',
-      }],
-      '@typescript-eslint/no-empty-object-type': 'off'
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: '[object.type=MetaProperty][property.name=env]',
+          message: 'Import meta.env directly is restricted. Use instead import { env } from "lib/env.ts".',
+        },
+      ],
+      '@typescript-eslint/no-empty-object-type': 'off',
     },
   },
 ]

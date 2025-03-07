@@ -11,6 +11,7 @@ import { EditIdeaRouteParams, getViewIdeaRoute } from '../../../lib/routes'
 import useForm from '../../../lib/form'
 import { withPageWrapper } from '../../../lib/pageWrapper'
 import { trpc } from '../../../lib/trpc'
+import { canEditIdea } from '@ideanick/backend/src/utils/can'
 
 export const EditIdeaPage = withPageWrapper({
   authorizedOnly: true,
@@ -22,7 +23,7 @@ export const EditIdeaPage = withPageWrapper({
   },
   setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
     const idea = checkExists(queryResult.data.idea, 'Idea not found')
-    checkAccess(ctx.me?.id === idea.authorId, 'An idea can be edited by its author only')
+    checkAccess(canEditIdea(ctx.me, idea), 'An idea can be edited by its author only')
     return { idea }
   },
 })(({ idea }) => {
