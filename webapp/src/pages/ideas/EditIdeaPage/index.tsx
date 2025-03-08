@@ -26,6 +26,7 @@ export const EditIdeaPage = withPageWrapper({
     checkAccess(canEditIdea(ctx.me, idea), 'An idea can be edited by its author only')
     return { idea }
   },
+  title: ({ idea }) => `Edit Idea "${idea.name}"`,
 })(({ idea }) => {
   const navigate = useNavigate()
   const updateIdea = trpc.updateIdea.useMutation()

@@ -10,6 +10,7 @@ import { getViewIdeaRoute } from '../../../lib/routes'
 import { UseTRPCInfiniteQueryResult } from '@trpc/react-query/shared'
 
 export const LikedIdeasPage = withPageWrapper({
+  title: 'Liked Ideas',
   authorizedOnly: true,
   useQuery: () => {
     return trpc.getLikedIdeas.useInfiniteQuery(

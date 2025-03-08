@@ -11,6 +11,7 @@ import useForm from '../../../lib/form'
 import { withPageWrapper } from '../../../lib/pageWrapper'
 
 export const SignUpPage = withPageWrapper({
+  title: 'Sign Up',
   redirectAuthorized: true,
 })(() => {
   const trpcUtils = trpc.useUtils()

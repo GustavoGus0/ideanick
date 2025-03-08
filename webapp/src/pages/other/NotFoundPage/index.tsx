@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import ErrorPageComponent from '../../../components/ErrorPageComponent'
 
 export default function NotFoundPage({
@@ -7,5 +8,12 @@ export default function NotFoundPage({
   title?: string
   message?: string
 }) {
-  return <ErrorPageComponent title={title} message={message} />
+  return (
+    <>
+      <Helmet>
+        <title>Not Found</title>
+      </Helmet>
+      <ErrorPageComponent title={title} message={message} />
+    </>
+  )
 }

@@ -10,6 +10,7 @@ import useForm from '../../../lib/form'
 import { withPageWrapper } from '../../../lib/pageWrapper'
 
 export const SignInPage = withPageWrapper({
+  title: 'Sign In',
   redirectAuthorized: true,
 })(() => {
   const trpcUtils = trpc.useUtils()

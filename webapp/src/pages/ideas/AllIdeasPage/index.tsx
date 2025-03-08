@@ -11,8 +11,12 @@ import useForm from '../../../lib/form'
 import Input from '../../../components/Input'
 import Alert from '../../../components/Alert'
 import { useDebounceValue } from 'usehooks-ts'
+import { withPageWrapper } from '../../../lib/pageWrapper'
 
-export default function AllIdeasPage() {
+export const AllIdeasPage = withPageWrapper({
+  title: 'IdeaNick',
+  isTitleExact: true,
+})(() => {
   const { formik } = useForm({
     initialValues: { search: '' },
     validationSchema: zGetIdeasTrpcInput.pick({ search: true }),
@@ -81,4 +85,4 @@ export default function AllIdeasPage() {
       )}
     </Segment>
   )
-}
+})

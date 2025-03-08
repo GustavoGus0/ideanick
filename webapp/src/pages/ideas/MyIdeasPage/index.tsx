@@ -11,6 +11,7 @@ import { withPageWrapper } from '../../../lib/pageWrapper'
 import { UseTRPCInfiniteQueryResult } from '@trpc/react-query/shared'
 
 export const MyIdeasPage = withPageWrapper({
+  title: 'My Ideas',
   authorizedOnly: true,
   useQuery: () => {
     return trpc.getMyIdeas.useInfiniteQuery(
