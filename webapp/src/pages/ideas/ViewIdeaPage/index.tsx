@@ -35,14 +35,14 @@ export const ViewIdeaPage = withPageWrapper({
         {idea.author.name ? ' ' + `(${idea.author.name})` : ' '}
       </div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
-      <div className={css.likes}>
-        Likes: {idea.likesCount}
+      <div className={css.likes} style={{ border: '1px solid red' }}>
         {me && idea.authorId !== me.id && (
           <>
             <br />
             <LikeButton idea={idea} />
           </>
         )}
+        Likes: {idea.likesCount}
       </div>
       {canEditIdea(me, idea) && (
         <div className={css.editButton}>

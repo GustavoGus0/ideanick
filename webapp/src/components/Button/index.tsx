@@ -3,6 +3,7 @@ import css from './index.module.scss'
 import { Link } from 'react-router-dom'
 import type { TrpcRouterOutput } from '@ideanick/backend/src/router'
 import { trpc } from '../../lib/trpc'
+import { Icon } from '../Icon'
 
 type ButtonColor = 'red' | 'green'
 export type ButtonProps = { children: React.ReactNode; loading?: boolean; color?: ButtonColor }
@@ -68,7 +69,7 @@ export const LikeButton = ({ idea }: { idea: NonNullable<TrpcRouterOutput['getId
         void setIdeaLike.mutateAsync({ ideaId: idea.id, isLikedByMe: !idea.isLikedByMe })
       }}
     >
-      {idea.isLikedByMe ? 'Unlike' : 'Like'}
+      <Icon size={32} className={css.likeIcon} name={idea.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
     </button>
   )
 }

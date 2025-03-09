@@ -27,4 +27,8 @@
 
 .likes {
   margin-top: 10px;
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  gap: 10px;
 }
