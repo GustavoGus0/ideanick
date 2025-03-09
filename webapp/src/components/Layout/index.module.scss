@@ -27,13 +27,22 @@ $breakpoint: '<=900px';
     }
 
     .logo {
+      display: flex;
+      width: 100%;
+      height: max-content;
+      align-items: center;
+      max-width: 130px;
+      gap: 10px;
       font-weight: bold;
       font-size: 20px;
       margin-bottom: 5px;
     }
 
     .loggedAs {
-      margin-bottom: 10px;
+      border-top: 1px solid vars.$black;
+      border-bottom: 1px solid vars.$black;
+      margin-bottom: 5px;
+      padding: 5px 0;
     }
 
     .menu {

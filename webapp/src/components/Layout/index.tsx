@@ -12,17 +12,20 @@ import {
 import { Link, Outlet } from 'react-router-dom'
 import { useMe } from '../../lib/ctx'
 import { createRef } from 'react'
+import { icons } from '../../assets/icons'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const layoutContextElRef = createRef<HTMLDivElement>()
-
 export default function Layout() {
   const me = useMe()
 
   return (
     <div className={css.layout}>
       <div className={css.navigation}>
-        <div className={css.logo}>IdeaNick</div>
+        <div className={css.logo}>
+          {icons.logo({ color: 'original' })}
+          IdeaNick
+        </div>
         <p className={css.loggedAs} style={!me ? { display: 'none' } : {}}>
           Logged as <span style={{ fontWeight: 'bold' }}>{me?.nick}</span>
         </p>
