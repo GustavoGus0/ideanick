@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import ErrorPageComponent from '../../../components/ErrorPageComponent'
+import image404 from '../../../assets/images/404.png'
+import css from './index.module.scss'
 
 export default function NotFoundPage({
   title = 'Not Found',
@@ -13,7 +15,9 @@ export default function NotFoundPage({
       <Helmet>
         <title>Not Found</title>
       </Helmet>
-      <ErrorPageComponent title={title} message={message} />
+      <ErrorPageComponent title={title} message={message}>
+        <img src={image404} className={css.image} alt="" width="800" height="600" />
+      </ErrorPageComponent>
     </>
   )
 }
