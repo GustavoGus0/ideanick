@@ -35,7 +35,7 @@ export const ViewIdeaPage = withPageWrapper({
         {idea.author.name ? ' ' + `(${idea.author.name})` : ' '}
       </div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
-      <div className={css.likes} style={{ border: '1px solid red' }}>
+      <div className={css.likes}>
         {me && idea.authorId !== me.id && (
           <>
             <br />
