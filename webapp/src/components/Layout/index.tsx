@@ -23,7 +23,7 @@ export default function Layout() {
     <div className={css.layout}>
       <div className={css.navigation}>
         <div className={css.logo}>
-          {icons.logo({ color: 'original' })}
+          {icons.logo({})}
           IdeaNick
         </div>
         <p className={css.loggedAs} style={!me ? { display: 'none' } : {}}>
